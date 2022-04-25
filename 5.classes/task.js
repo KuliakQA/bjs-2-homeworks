@@ -28,37 +28,37 @@ class PrintEditionItem {
 }
 
 class Magazine extends PrintEditionItem {
-  constructor(name, releaseDate, pagesCount, state) {
-    super(name, releaseDate, pagesCount, state);
+  constructor(name, releaseDate, pagesCount) {
+    super(name, releaseDate, pagesCount);
     this.type = "magazine";
   }
 }
 
 class Book extends PrintEditionItem {
-  constructor(author, name, releaseDate, pagesCount, state) {
-    super(name, releaseDate, pagesCount, state);
+  constructor(author, name, releaseDate, pagesCount) {
+    super(name, releaseDate, pagesCount);
     this.author = author;
     this.type = "book";
   }
 }
 
 class NovelBook extends Book {
-  constructor(author, name, releaseDate, pagesCount, state) {
-    super(author, name, releaseDate, pagesCount, state);
+  constructor(author, name, releaseDate, pagesCount) {
+    super(author, name, releaseDate, pagesCount);
     this.type = "novel";
   }
 }
 
 class FantasticBook extends Book {
-  constructor(author, name, releaseDate, pagesCount, state) {
-    super(author, name, releaseDate, pagesCount, state);
+  constructor(author, name, releaseDate, pagesCount) {
+    super(author, name, releaseDate, pagesCount);
     this.type = "fantastic";
   }
 }
 
 class DetectiveBook extends Book {
-  constructor(author, name, releaseDate, pagesCount, state) {
-    super(author, name, releaseDate, pagesCount, state);
+  constructor(author, name, releaseDate, pagesCount) {
+    super(author, name, releaseDate, pagesCount);
     this.type = "detective";
   }
 }
@@ -79,9 +79,7 @@ class Library {
   }
 
   addBook(book) {
-    if (this.state < 30) {
-      this.books = [book];
-    } else {
+    if (book.state > 30) {
       this.books.push(book);
     }
   }
@@ -92,9 +90,9 @@ class Library {
   }
 
   giveBookByName(bookName) {
-   return this.books.splice(this.books.findIndex((book =>
-        book.name === [bookName]))) || null;
-    }
+    let index = this.books.findIndex(book => book.name === bookName);
+    return index != -1 ? this.books.splice(index, 1)[0] : null;
+  }
 }
 
 const library = new Library("Библиотека имени Ленина");
@@ -107,7 +105,6 @@ library.addBook(
     1008,
   )
 );
-
 library.addBook(
   new FantasticBook(
     "Аркадий и Борис Стругацкие",
@@ -116,7 +113,6 @@ library.addBook(
     168
   )
 );
-
 library.addBook(new NovelBook("Фредерик Мурсо", "Солнце на марсе", 1919, 140));
 library.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
 library.addBook(new Magazine("Мурзилка", 1924, 60));
